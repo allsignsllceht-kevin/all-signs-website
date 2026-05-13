@@ -21,6 +21,7 @@ import g18 from "@assets/IMG_8984_1777006384622.jpeg";
 import g19 from "@assets/IMG_8977_1777006384622.jpeg";
 import g20 from "@assets/IMG_8976_1777006384622.jpeg";
 import g21 from "@assets/IMG_8974_1777006384622.png";
+import g22 from "@assets/jennings-funeral-home.jpg";
 
 type Project = {
   img: string;
@@ -177,6 +178,13 @@ const projects: Project[] = [
     location: "South Jersey",
     tag: "Channel Letters In-Shop",
     story: "A full set of black-faced illuminated channel letters fabricated in our Pleasantville shop — staged on the table before heading out for install.",
+  },
+  {
+    img: g22,
+    name: "TJC Jennings Funeral Home",
+    location: "South Jersey",
+    tag: "Monument Sign",
+    story: "A stately monument sign with dimensional letters, custom tree element, and stone veneer base — built to honor the legacy of a family-owned funeral home serving the community.",
   },
 ];
 
