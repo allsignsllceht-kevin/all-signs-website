@@ -1,7 +1,39 @@
-import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, AlertCircle } from "lucide-react";
 import mapPlaceholder from "@/assets/gallery-1.png"; // Using gallery-1 as a placeholder for map
 
 export function Contact() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("submitting");
+
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/allsignsllc@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        (e.target as HTMLFormElement).reset();
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      setStatus("error");
+    }
+  };
+
   return (
     <section id="contact" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
@@ -95,69 +127,112 @@ export function Contact() {
               <h4 className="text-2xl font-display font-bold text-primary mb-2">Request a Quote</h4>
               <p className="text-muted-foreground mb-8">Fill out the form below and we'll get back to you shortly.</p>
               
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {status === "success" ? (
+                <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center space-y-4">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                    <CheckCircle2 className="w-10 h-10 text-green-600" />
+                  </div>
+                  <h5 className="text-2xl font-bold text-green-800">Message Sent!</h5>
+                  <p className="text-green-700">
+                    Thank you for reaching out. We have received your request and will get back to you as soon as possible.
+                  </p>
+                  <button 
+                    onClick={() => setStatus("idle")}
+                    className="text-green-800 font-bold underline hover:text-green-900"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form className="space-y-6" onSubmit={handleSubmit}>
+                  {/* FormSubmit.co Configuration */}
+                  <input type="hidden" name="_subject" value="New Quote Request from AllSignsLLC.com" />
+                  <input type="hidden" name="_captcha" value="false" />
+                  <input type="hidden" name="_template" value="table" />
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-foreground">First Name</label>
+                      <input 
+                        required
+                        name="first_name"
+                        type="text" 
+                        className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                        placeholder="John"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-foreground">Last Name</label>
+                      <input 
+                        required
+                        name="last_name"
+                        type="text" 
+                        className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                        placeholder="Smith"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground">First Name</label>
+                    <label className="text-sm font-bold text-foreground">Business Name</label>
                     <input 
+                      name="business_name"
                       type="text" 
                       className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                      placeholder="John"
+                      placeholder="Your Company LLC"
                     />
                   </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-foreground">Email Address</label>
+                      <input 
+                        required
+                        name="email"
+                        type="email" 
+                        className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-bold text-foreground">Phone Number</label>
+                      <input 
+                        required
+                        name="phone"
+                        type="tel" 
+                        className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
+                        placeholder="(555) 123-4567"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground">Last Name</label>
-                    <input 
-                      type="text" 
-                      className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                      placeholder="Smith"
+                    <label className="text-sm font-bold text-foreground">Project Details</label>
+                    <textarea 
+                      required
+                      name="message"
+                      className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[150px] resize-y"
+                      placeholder="Tell us about the sign you need (type, size, location, etc.)..."
                     />
                   </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-foreground">Business Name</label>
-                  <input 
-                    type="text" 
-                    className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                    placeholder="Your Company LLC"
-                  />
-                </div>
+                  {status === "error" && (
+                    <div className="flex items-center gap-2 text-red-600 bg-red-50 p-4 rounded-md border border-red-100">
+                      <AlertCircle className="w-5 h-5" />
+                      <p className="text-sm font-medium">Something went wrong. Please try again or call us directly.</p>
+                    </div>
+                  )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground">Email Address</label>
-                    <input 
-                      type="email" 
-                      className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground">Phone Number</label>
-                    <input 
-                      type="tel" 
-                      className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
-                      placeholder="(555) 123-4567"
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-bold text-foreground">Project Details</label>
-                  <textarea 
-                    className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[150px] resize-y"
-                    placeholder="Tell us about the sign you need (type, size, location, etc.)..."
-                  />
-                </div>
-
-                <button 
-                  type="submit" 
-                  className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-lg hover:bg-primary/90 transition-all shadow-md hover:shadow-lg"
-                >
-                  Send Message <Send className="w-5 h-5" />
-                </button>
-              </form>
+                  <button 
+                    disabled={status === "submitting"}
+                    type="submit" 
+                    className="w-full flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-md font-bold text-lg hover:bg-primary/90 transition-all shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {status === "submitting" ? "Sending..." : "Send Message"} 
+                    <Send className="w-5 h-5" />
+                  </button>
+                </form>
+              )}
             </div>
           </div>
 
