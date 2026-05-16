@@ -1,7 +1,80 @@
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
-import mapPlaceholder from "@/assets/gallery-1.png"; // Using gallery-1 as a placeholder for map
+import { useState } from "react";
+import mapPlaceholder from "@/assets/gallery-1.png";
 
 export function Contact() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    businessName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Validate required fields
+    if (!formData.firstName || !formData.email || !formData.phone || !formData.message) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    // Construct the email body with formatted content
+    const emailBody = `
+New Quote Request from AllSignsLLC.com
+
+------- CONTACT INFORMATION -------
+First Name: ${formData.firstName}
+Last Name: ${formData.lastName}
+Business Name: ${formData.businessName}
+Email: ${formData.email}
+Phone: ${formData.phone}
+
+------- PROJECT DETAILS -------
+${formData.message}
+
+------- END OF MESSAGE -------
+
+This email was sent via the contact form on allsignsllc.com
+    `.trim();
+
+    // Construct the mailto link
+    const subject = encodeURIComponent("New Quote Request from AllSignsLLC.com");
+    const body = encodeURIComponent(emailBody);
+    const mailtoLink = `mailto:allsignsllc@gmail.com?subject=${subject}&body=${body}`;
+
+    // Open the user's email client
+    window.location.href = mailtoLink;
+
+    // Show success message
+    setSubmitted(true);
+
+    // Reset form after a short delay
+    setTimeout(() => {
+      setFormData({
+        firstName: "",
+        lastName: "",
+        businessName: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+      setSubmitted(false);
+    }, 2000);
+  };
+
   return (
     <section id="contact" className="py-24 bg-muted/30">
       <div className="container mx-auto px-4 lg:px-8">
@@ -95,24 +168,26 @@ export function Contact() {
               <h4 className="text-2xl font-display font-bold text-primary mb-2">Request a Quote</h4>
               <p className="text-muted-foreground mb-8">Fill out the form below and we'll get back to you shortly.</p>
               
-              <form 
-                action="https://formsubmit.co/allsignsllc@gmail.com" 
-                method="POST"
-                className="space-y-6"
-              >
-                {/* FormSubmit.co Configuration */}
-                <input type="hidden" name="_subject" value="New Quote Request from AllSignsLLC.com" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_next" value="https://allsignsllc.com/thank-you" />
-                
+              {submitted && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-start gap-3">
+                  <div className="text-green-600 text-2xl">✓</div>
+                  <div>
+                    <p className="font-bold text-green-900">Email client opening...</p>
+                    <p className="text-sm text-green-700">Your email client should open with your message. If it doesn't, please email us directly at <a href="mailto:allsignsllc@gmail.com" className="underline font-bold">allsignsllc@gmail.com</a></p>
+                  </div>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground">First Name</label>
+                    <label className="text-sm font-bold text-foreground">First Name *</label>
                     <input 
                       required
-                      name="first_name"
-                      type="text" 
+                      name="firstName"
+                      type="text"
+                      value={formData.firstName}
+                      onChange={handleChange}
                       className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="John"
                     />
@@ -120,9 +195,10 @@ export function Contact() {
                   <div className="space-y-2">
                     <label className="text-sm font-bold text-foreground">Last Name</label>
                     <input 
-                      required
-                      name="last_name"
-                      type="text" 
+                      name="lastName"
+                      type="text"
+                      value={formData.lastName}
+                      onChange={handleChange}
                       className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="Smith"
                     />
@@ -132,8 +208,10 @@ export function Contact() {
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-foreground">Business Name</label>
                   <input 
-                    name="business_name"
-                    type="text" 
+                    name="businessName"
+                    type="text"
+                    value={formData.businessName}
+                    onChange={handleChange}
                     className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                     placeholder="Your Company LLC"
                   />
@@ -141,21 +219,25 @@ export function Contact() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground">Email Address</label>
+                    <label className="text-sm font-bold text-foreground">Email Address *</label>
                     <input 
                       required
                       name="email"
-                      type="email" 
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="john@example.com"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-bold text-foreground">Phone Number</label>
+                    <label className="text-sm font-bold text-foreground">Phone Number *</label>
                     <input 
                       required
                       name="phone"
-                      type="tel" 
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
                       className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all"
                       placeholder="(555) 123-4567"
                     />
@@ -163,10 +245,12 @@ export function Contact() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-foreground">Project Details</label>
+                  <label className="text-sm font-bold text-foreground">Project Details *</label>
                   <textarea 
                     required
                     name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full bg-muted/50 border border-border rounded-md p-3 text-foreground focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all min-h-[150px] resize-y"
                     placeholder="Tell us about the sign you need (type, size, location, etc.)..."
                   />
@@ -178,6 +262,10 @@ export function Contact() {
                 >
                   Send Message <Send className="w-5 h-5" />
                 </button>
+
+                <p className="text-xs text-muted-foreground text-center">
+                  By submitting this form, your email client will open with your message pre-filled. Simply review and send from your email account.
+                </p>
               </form>
             </div>
           </div>
