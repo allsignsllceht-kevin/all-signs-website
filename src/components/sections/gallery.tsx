@@ -23,6 +23,7 @@ import g20 from "@assets/IMG_8976_1777006384622.jpeg";
 import g21 from "@assets/IMG_8974_1777006384622.png";
 import g22 from "@assets/jennings-funeral-home.jpg";
 import g23 from "@assets/atilis-gym-channel-letters.jpg";
+import g24 from "@assets/pizza-di-roma-cedar.jpg";
 
 type Project = {
   img: string;
@@ -193,6 +194,13 @@ const projects: Project[] = [
     location: "Pleasantville, NJ (Fabrication)",
     tag: "Custom Channel Letters",
     story: "Custom-built red illuminated channel letters for Atilis Gym — assembled on the workbench in our Pleasantville shop before heading out for installation.",
+  },
+  {
+    img: g24,
+    name: "Pizza Di Roma II & Cedar Wine & Spirits",
+    location: "Pleasantville, NJ",
+    tag: "Illuminated Channel Letters",
+    story: "Individually mounted, illuminated custom-built channel letters for a local plaza — featuring the Italy boot logo for Pizza Di Roma II and the cedar tree for Cedar Wine & Spirits.",
   },
 ];
 
