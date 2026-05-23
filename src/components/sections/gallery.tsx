@@ -24,6 +24,7 @@ import g21 from "@assets/IMG_8974_1777006384622.png";
 import g22 from "@assets/jennings-funeral-home.jpg";
 import g23 from "@assets/atilis-gym-channel-letters.jpg";
 import g24 from "@assets/pizza-di-roma-cedar.jpg";
+import g25 from "@assets/culina-mundi-window.jpg";
 
 type Project = {
   img: string;
@@ -201,6 +202,13 @@ const projects: Project[] = [
     location: "Pleasantville, NJ",
     tag: "Illuminated Channel Letters",
     story: "Individually mounted, illuminated custom-built channel letters for a local plaza — featuring the Italy boot logo for Pizza Di Roma II and the cedar tree for Cedar Wine & Spirits.",
+  },
+  {
+    img: g25,
+    name: "Culina Mundi",
+    location: "Ventnor, NJ",
+    tag: "Vinyl Window Graphics",
+    story: "Elegant vinyl window graphics for Culina Mundi — 'Where the world gathers at one table.' Gold lettering on tinted glass announcing the coming-soon opening of this new restaurant.",
   },
 ];
 
