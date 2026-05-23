@@ -22,6 +22,7 @@ import g19 from "@assets/IMG_8977_1777006384622.jpeg";
 import g20 from "@assets/IMG_8976_1777006384622.jpeg";
 import g21 from "@assets/IMG_8974_1777006384622.png";
 import g22 from "@assets/jennings-funeral-home.jpg";
+import g23 from "@assets/atilis-gym-channel-letters.jpg";
 
 type Project = {
   img: string;
@@ -185,6 +186,13 @@ const projects: Project[] = [
     location: "South Jersey",
     tag: "Monument Sign",
     story: "A stately monument sign with dimensional letters, custom tree element, and stone veneer base — built to honor the legacy of a family-owned funeral home serving the community.",
+  },
+  {
+    img: g23,
+    name: "Atilis Gym — In the Shop",
+    location: "Pleasantville, NJ (Fabrication)",
+    tag: "Custom Channel Letters",
+    story: "Custom-built red illuminated channel letters for Atilis Gym — assembled on the workbench in our Pleasantville shop before heading out for installation.",
   },
 ];
 
