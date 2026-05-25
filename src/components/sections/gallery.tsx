@@ -27,6 +27,7 @@ import g24 from "@assets/pizza-di-roma-cedar.jpg";
 import g25 from "@assets/culina-mundi-window.jpg";
 import g26 from "@assets/sandhouse-shop.jpg";
 import g27 from "@assets/sandhouse-installed.jpg";
+import g28 from "@assets/atilis-gym-installed.jpg";
 
 type Project = {
   img: string;
@@ -197,6 +198,13 @@ const projects: Project[] = [
     location: "Pleasantville, NJ (Fabrication)",
     tag: "Custom Channel Letters",
     story: "Custom-built red illuminated channel letters for Atilis Gym — assembled on the workbench in our Pleasantville shop before heading out for installation.",
+  },
+  {
+    img: g28,
+    name: "Atilis Gym — Installed",
+    location: "Atlantic County, NJ",
+    tag: "Custom Channel Letters",
+    story: "The Atilis Gym channel letters mounted above the entrance — diamond plate barbell, bold red letters, and all the attitude of the iron-house brand, from our shop to the storefront.",
   },
   {
     img: g24,
