@@ -25,6 +25,8 @@ import g22 from "@assets/jennings-funeral-home.jpg";
 import g23 from "@assets/atilis-gym-channel-letters.jpg";
 import g24 from "@assets/pizza-di-roma-cedar.jpg";
 import g25 from "@assets/culina-mundi-window.jpg";
+import g26 from "@assets/sandhouse-shop.jpg";
+import g27 from "@assets/sandhouse-installed.jpg";
 
 type Project = {
   img: string;
@@ -209,6 +211,20 @@ const projects: Project[] = [
     location: "Ventnor, NJ",
     tag: "Vinyl Window Graphics",
     story: "Elegant vinyl window graphics for Culina Mundi — 'Where the world gathers at one table.' Gold lettering on tinted glass announcing the coming-soon opening of this new restaurant.",
+  },
+  {
+    img: g26,
+    name: "Sandhouse Kitchen — In the Shop",
+    location: "Pleasantville, NJ (Fabrication)",
+    tag: "Cabinet Sign",
+    story: "The Sandhouse Kitchen cabinet sign fresh off the workbench — bold orange lettering on white with a sky-blue frame, hand-built in our Pleasantville shop and ready for the beach.",
+  },
+  {
+    img: g27,
+    name: "Sandhouse Kitchen — Installed",
+    location: "Jersey Shore",
+    tag: "Cabinet Sign",
+    story: "The finished Sandhouse Kitchen sign mounted on the rooftop of the beachfront bar — from our shop to the shore, built to stand up to the salt air and summer sun.",
   },
 ];
 
