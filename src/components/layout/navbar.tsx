@@ -32,6 +32,7 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center gap-8 font-sans font-medium text-sm text-foreground">
           <a href="#services" className="hover:text-secondary transition-colors">Services</a>
           <a href="#about" className="hover:text-secondary transition-colors">About Us</a>
+          <a href="#process" className="hover:text-secondary transition-colors">Our Process</a>
           <a href="#gallery" className="hover:text-secondary transition-colors">Gallery</a>
           <a href="#contact" className="hover:text-secondary transition-colors">Contact</a>
         </nav>
@@ -67,6 +68,7 @@ export function Navbar() {
         <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-t border-border shadow-xl flex flex-col font-sans font-medium">
           <a href="#services" onClick={() => setIsOpen(false)} className="px-6 py-4 border-b border-border text-foreground hover:bg-muted">Services</a>
           <a href="#about" onClick={() => setIsOpen(false)} className="px-6 py-4 border-b border-border text-foreground hover:bg-muted">About Us</a>
+          <a href="#process" onClick={() => setIsOpen(false)} className="px-6 py-4 border-b border-border text-foreground hover:bg-muted">Our Process</a>
           <a href="#gallery" onClick={() => setIsOpen(false)} className="px-6 py-4 border-b border-border text-foreground hover:bg-muted">Gallery</a>
           <a href="#contact" onClick={() => setIsOpen(false)} className="px-6 py-4 border-b border-border text-foreground hover:bg-muted">Contact</a>
           <div className="p-6 bg-muted">
